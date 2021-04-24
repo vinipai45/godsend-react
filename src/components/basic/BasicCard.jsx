@@ -5,7 +5,7 @@ import '../../assets/basicCard.css';
 const BasicCard =()=>{
   return(
     
-    <div className="col s12 m3 ">
+    <div className="col s12 m6 l4 ">
       <div className="card hoverable">
         <div className="card-content">
           <span className="card-title">Karkala</span>

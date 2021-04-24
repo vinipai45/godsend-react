@@ -44,11 +44,12 @@ class SignupFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
         this.setState({ ...INITIAL_STATE });
-        // this.props.history.push(ROUTES.HOME);
+        // global.authUser = authUser
+        this.props.history.push(ROUTES.LOGIN)
         console.log(authUser);
       })
       .catch(error => {
-        alert("Oops")
+        console.log(error);
       });
  
     event.preventDefault();

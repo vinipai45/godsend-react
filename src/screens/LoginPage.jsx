@@ -24,10 +24,8 @@ const LoginPage = () => {
 
 const INITIAL_STATE = {
   email: '',
-  passwordOne: '',
-  passwordTwo: '',
-  passwordShownOne:false,
-  passwordShownTwo:false,
+  password: '',
+  passwordShown:'',
   error: null,
 };
  
@@ -42,30 +40,25 @@ class LoginFormBase extends Component {
  
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((data) => {
         this.setState({ ...INITIAL_STATE });
+        
         this.props.history.push(ROUTES.HOME);
+        console.log(data);
       })
       .catch(error => {
         this.setState({ error });
+        console.log(error);
       });
  
     event.preventDefault();
   };
 
-  togglePasswordOneVisiblity = () => {
-    const {passwordShownOne} = this.state;
+  togglePasswordVisiblity = () => {
+    const {passwordShown} = this.state;
 
-    passwordShownOne ? this.setState({passwordShownOne:false}) 
-                     : this.setState({passwordShownOne:true})
-    
-  };
-
-  togglePasswordTwoVisiblity = () => {
-    const {passwordShownTwo} = this.state;
-
-    passwordShownTwo ? this.setState({passwordShownTwo:false}) 
-    : this.setState({passwordShownTwo:true})
+    passwordShown ? this.setState({passwordShown:false}) 
+                     : this.setState({passwordShown:true})
     
   };
 
@@ -76,13 +69,13 @@ class LoginFormBase extends Component {
   render() {
     const {
       email,
-      passwordOne,
-      passwordShownOne,
+      password,
+      passwordShown,
       error,
     } = this.state;
 
     const isInvalid =
-      passwordOne === '' ||
+      password === '' ||
       email === '';
 
     
@@ -110,16 +103,16 @@ class LoginFormBase extends Component {
                 {/* Password */}
                 <div className="input-field _myInput">
                     <input 
-                      id ="passwordOne"
-                      name="passwordOne" 
-                      type={passwordShownOne?"text":"password"} 
+                      id ="password"
+                      name="password" 
+                      type={passwordShown?"text":"password"} 
                       className="validate" 
                       autoComplete="off"
-                      value={passwordOne}
+                      value={password}
                       onChange={this.onChange}
                     />
-                    <label htmlFor="passwordOne">Password </label>
-                    <i className="eye" onClick={this.togglePasswordOneVisiblity}>{passwordShownOne?eye:eye_slash}</i>
+                    <label htmlFor="password">Password </label>
+                    <i className="eye" onClick={this.togglePasswordVisiblity}>{passwordShown?eye:eye_slash}</i>
                 </div>
                 
                 {/* Submit form  */}
