@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link,withRouter } from 'react-router-dom';
-
+import {compose} from 'recompose'
 import { withFirebase} from '../components/firebase';
 import * as ROUTES from '../constants/routes';
 
@@ -134,7 +134,10 @@ class LoginFormBase extends Component {
   }
 }
  
-const LoginForm = withRouter(withFirebase(LoginFormBase));
+const LoginForm = compose(
+  withRouter,
+  withFirebase,
+)(LoginFormBase);
  
 export default LoginPage;
  

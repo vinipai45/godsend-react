@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import AccidentCardList from '../components/AccidentCardList'
+import {AuthUserContext} from '../components/session'
+import LoginPage from '../screens/LoginPage'
 
 
 const DetailsPage = () => {
     return (
         <>
-        <AccidentCardList />
+        <AuthUserContext.Consumer>
+            {authUser=>
+                authUser? <AccidentCardList /> : <LoginPage />
+            }
+        </AuthUserContext.Consumer>
         </>
     );
   }

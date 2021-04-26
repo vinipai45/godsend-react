@@ -1,18 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../constants/routes'
 import '../assets/navbar.css';
+import SignoutButton from './SignoutButton';
+import { AuthUserContext } from './session';
 
-const NavBar = () => { 
+const NavBar = () => (
+  <>
+      <AuthUserContext.Consumer>
+        {authUser =>
+          authUser ? <NavBarAuth /> : <NavBarNonAuth />
+        }
+      </AuthUserContext.Consumer>
+  </>
+);
+
+const NavBarAuth = () => { 
     return(
-        <nav className="deep-purple darken-1">
+        <nav className=" grey darken-3">
         <div className="nav-wrapper">
         <a href="#!" className="brand-logo _logo"><i className="material-icons">cloud</i>GodSend</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><a href="sass.html">History</a></li>
-            <li><a href="badges.html">About</a></li>
+            <li>
+              <SignoutButton />
+            </li>
           </ul>
         </div>
       </nav>
     );
+};
+
+const NavBarNonAuth = () => { 
+  return(
+      <nav className=" grey darken-3">
+      <div className="nav-wrapper">
+      <a href="#!" className="brand-logo _logo"><i className="material-icons">cloud</i>GodSend</a>
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <li>
+            <Link to={ROUTES.LOGIN}>Login </Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
 };
 
 export default NavBar;

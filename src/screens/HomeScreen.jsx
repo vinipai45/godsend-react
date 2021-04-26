@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-
+import LoginPage from '../screens/LoginPage'
+import { AuthUserContext } from '../components/session';
 import CityCardList from '../components/CityCardList'
 
 
 const HomeScreen = () => {
     return (
         <>
-        <CityCardList />
+        <AuthUserContext.Consumer>
+            {authUser=>
+                authUser? <CityCardList /> : <LoginPage />
+            }
+        </AuthUserContext.Consumer>
+        
         </>
     );
   }
