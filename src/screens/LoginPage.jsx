@@ -3,12 +3,13 @@ import { Link,withRouter } from 'react-router-dom';
 import {compose} from 'recompose'
 import { withFirebase} from '../components/firebase';
 import * as ROUTES from '../constants/routes';
-
+import Swal from 'sweetalert2'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye,faEyeSlash  } from "@fortawesome/free-solid-svg-icons";
 import '../assets/signup.css';
 const eye = <FontAwesomeIcon icon={faEye} />;
 const eye_slash = <FontAwesomeIcon icon={faEyeSlash} />;
+
 
  
 
@@ -44,7 +45,16 @@ class LoginFormBase extends Component {
         this.setState({ ...INITIAL_STATE });
         
         this.props.history.push(ROUTES.HOME);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
         console.log(data);
+
       })
       .catch(error => {
         this.setState({ error });
