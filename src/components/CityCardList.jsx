@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {withFirebase} from "../components/firebase"
 import {compose} from 'recompose'
+import { Link } from 'react-router-dom';
+import {AuthUserContext} from '../components/session'
+import LoginPage from '../screens/LoginPage';
 
 
 class CardList extends Component {
@@ -46,56 +49,36 @@ class CardList extends Component {
     //     })
     //   }
     let displayPosts = this.state.posts.map((p) => (
-      <div key={p.placeId}>
-          <h1>{p.place}</h1>
+      <div className="col s12 m6 l4 " key={p.placeId}>
+      <div className="card hoverable">
+        <div className="card-content">
+          <span className="card-title">{p.place}</span>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, expedita sunt. Quod rerum facere alias quos asperiores illum eius officia velit totam dolorum! Maiores repellendus similique odio ipsam, voluptatibus eum.</p>
+        </div>
+        <div className="card-action hoverable _moreInCard">
+          <Link to={p.place} ><a className="purple-text" href="#">More <i class="material-icons right">forward</i></a></Link>
+        </div>
       </div>
+    </div>
   ))
       return(
-        <div>
-          {displayPosts}
-        </div>
+        <>
+        <AuthUserContext.Consumer>
+            {authUser=>
+                authUser
+                ? 
+                  <div className="row">{displayPosts}</div> 
+                : <LoginPage />
+            }
+        </AuthUserContext.Consumer>
+        </>
       )
   }
 }
 
-const CityCard = compose(
+const CityCardList = compose(
   withFirebase,
 )(CardList);
+ 
+export default  CityCardList ;
 
-// export default CityCardList
-export default  CityCard ;
-
-
-
-
-
-
-
-
-
-
-// import React, { Component } from 'react';
-// import BasicCard from './basic/BasicCard';
-
-// const CityCardList =()=>{
-//   return(
-//     <>
-//     <div className="row">
-//       <div className="col s12 m6 l4 ">
-//         <div className="card hoverable">
-//           <div className="card-content">
-//             <span className="card-title">Karkala</span>
-//             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, expedita sunt. Quod rerum facere alias quos asperiores illum eius officia velit totam dolorum! Maiores repellendus similique odio ipsam, voluptatibus eum.</p>
-//           </div>
-//           <div className="card-action hoverable _moreInCard">
-//             <Link to="/accidents"><a className="purple-text" href="#">More <i class="material-icons right">forward</i></a></Link>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-      
-//     </>
-//   );
-// }
-
-// export default CityCardList;

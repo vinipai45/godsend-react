@@ -5,21 +5,22 @@ import img from '../../assets/images/car-1.jpeg'
 const ImageCard =()=>{
   return(
     
-    <div class="col s12 m3">
-      <div class="card">
-        <div class="card-image">
-          <img className="_img" src={img} />
-          <span class="card-title">Near Bus Stand</span>
-        </div>
+    <div class="col s12">
+    <h2 class="header">Horizontal Card</h2>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="https://picsum.photos/200/300" />
+      </div>
+      <div class="card-stacked">
         <div class="card-content">
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
+          <p>I am a very simple card. I am good at containing small bits of information.</p>
         </div>
         <div class="card-action">
           <a href="#">This is a link</a>
         </div>
       </div>
     </div>
+  </div>
   
   );
 }

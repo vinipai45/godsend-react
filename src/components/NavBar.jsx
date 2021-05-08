@@ -19,7 +19,7 @@ const NavBarAuth = () => {
     return(
         <nav className=" grey darken-3">
         <div className="nav-wrapper">
-        <a href="#!" className="brand-logo _logo"><i className="material-icons">cloud</i>GodSend</a>
+        <Link to="/" className="brand-logo _logo"><i className="material-icons">cloud</i>GodSend</Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
               <SignoutButton />
