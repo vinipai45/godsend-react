@@ -57,8 +57,7 @@ class DetailsPageBase extends Component{
                         <Carousel
                             autoPlay={true}  
                             infiniteLoop={true} 
-                            interval={3000} 
-                            showArrows={false} 
+                            interval={2000}
                             centerMode={true} 
                             centerSlidePercentage={100} 
                             showThumbs={false} 
