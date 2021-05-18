@@ -55,9 +55,11 @@ class CardList extends Component {
           <span className="card-title">{p.place}</span>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, expedita sunt. Quod rerum facere alias quos asperiores illum eius officia velit totam dolorum! Maiores repellendus similique odio ipsam, voluptatibus eum.</p>
         </div>
-        <div className="card-action hoverable _moreInCard">
-          <Link to={p.place} ><a className="purple-text" href="#">More <i class="material-icons right">forward</i></a></Link>
-        </div>
+        <Link to={p.place} >
+          <div className="card-action hoverable _moreInCard">
+            <p className="purple-text">More <i class="material-icons right">forward</i></p>
+          </div>
+        </Link>
       </div>
     </div>
   ))

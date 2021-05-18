@@ -5,6 +5,9 @@ import {AuthUserContext} from '../components/session'
 import LoginPage from '../screens/LoginPage'
 import '../assets/imageCard.css'
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 
 class DetailsPageBase extends Component{
     constructor(props) {
@@ -37,15 +40,37 @@ class DetailsPageBase extends Component{
                 }))
             ))
         ))
+
+        
     }
 
     render(){
+
+
+
+
         let displayPosts = this.state.posts.map((p) => (
             <div key={p.postId}>
                 <div class="col s12">
                     <div class="card horizontal">
                         <div class="card-image">
-                            <img className="_img" src={p.image_link} />
+                        <Carousel
+                            autoPlay={true}  
+                            infiniteLoop={true} 
+                            interval={3000} 
+                            showArrows={false} 
+                            centerMode={true} 
+                            centerSlidePercentage={100} 
+                            showThumbs={false} 
+                            showIndicators={false} 
+                        >
+                            { 
+                                p.image_link.map((element)=>(
+                                    <img className="_img" src={element} /> 
+                                ))
+                            }
+                            
+                        </Carousel>
                         </div>
                         <div class="card-stacked">
                             <div class="card-content">
