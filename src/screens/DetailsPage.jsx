@@ -14,40 +14,39 @@ class DetailsPageBase extends Component{
         super(props)
         this.state = {
           placename : '',
+          category:'',
           posts:[]
         }
     }
     componentDidMount = ()=>{
-        const { placename } = this.props.match.params
-        this.setState(() => ({ placename }))
+        const { placename,category } = this.props.match.params
+        this.setState(() => ({ placename,category }))
 
+        console.log("category==="+category);
         console.log("placename === "+placename);
         
         let placeRef = this.props.firebase.db.collection(placename);
         placeRef.get().then((snapshot)=>(
-            snapshot.forEach((doc) => (
-                this.setState((prevState) => ({
-                    posts: [...prevState.posts, {
-                        postId:doc.id,
-                        address: doc.data().address,
-                        citizen_email: doc.data().citizen_email,
-                        citizen_name:doc.data().citizen_name,
-                        image_link:doc.data().image_link,
-                        squads:doc.data().squads,
-                        threat:doc.data().threat,
-                        timeStamp:doc.data().timeStamp
-                    }]
-                }))
-            ))
+            snapshot.forEach((doc) => {
+                if(doc.data().squads.includes(category)){
+                    this.setState((prevState) => ({
+                        posts: [...prevState.posts, {
+                            postId:doc.id,
+                            address: doc.data().address,
+                            citizen_email: doc.data().citizen_email,
+                            citizen_name:doc.data().citizen_name,
+                            image_link:doc.data().image_link,
+                            squads:doc.data().squads ,
+                            threat:doc.data().threat,
+                            timeStamp:doc.data().timeStamp
+                        }]
+                    }))
+                }
+            })
         ))
-
-        
     }
 
     render(){
-
-
-
 
         let displayPosts = this.state.posts.map((p) => (
             <div key={p.postId}>
