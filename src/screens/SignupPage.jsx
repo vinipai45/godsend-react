@@ -14,11 +14,11 @@ const eye_slash = <FontAwesomeIcon icon={faEyeSlash} />;
 
  
 
-const options = [
-  { value: 'Police', label: 'Police' },
-  { value: 'FireStation', label: 'FireStation' },
-  { value: 'Ambulance', label: 'Ambulance' },
-];
+// const options = [
+//   { value: 'Police', label: 'Police' },
+//   { value: 'FireStation', label: 'FireStation' },
+//   { value: 'Ambulance', label: 'Ambulance' },
+// ];
 const SignupPage = () => {
   return(
       <>
@@ -38,7 +38,8 @@ const INITIAL_STATE = {
   passwordShownTwo:false,
   error: null,
   selectedOption: null,
-  category: [] 
+  category: [],
+  options:[] 
 };
  
 class SignupFormBase extends Component {
@@ -50,10 +51,16 @@ class SignupFormBase extends Component {
   componentDidMount =async()=>{
     const snapshot = await this.props.firebase.db.collection('squad_catgory').get()
     var category = [];
+    var options = [];
     snapshot.forEach(doc=>{
       category.push(doc.data().name)
+      options.push({
+         value: doc.data().name, label: doc.data().name 
+      });
     })
     this.setState({category})
+    this.setState({options})
+
 
   }
  
@@ -136,7 +143,7 @@ class SignupFormBase extends Component {
                 <Select
                   value={selectedOption}
                   onChange={this.handleChange}
-                  options={options}
+                  options={this.state.options}
                 />
                 </div>
                 {/* Email */}

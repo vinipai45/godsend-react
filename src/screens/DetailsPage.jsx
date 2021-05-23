@@ -26,24 +26,86 @@ class DetailsPageBase extends Component{
         console.log("placename === "+placename);
         
         let placeRef = this.props.firebase.db.collection(placename);
-        placeRef.get().then((snapshot)=>(
-            snapshot.forEach((doc) => {
-                if(doc.data().squads.includes(category)){
-                    this.setState((prevState) => ({
-                        posts: [...prevState.posts, {
-                            postId:doc.id,
-                            address: doc.data().address,
-                            citizen_email: doc.data().citizen_email,
-                            citizen_name:doc.data().citizen_name,
-                            image_link:doc.data().image_link,
-                            squads:doc.data().squads ,
-                            threat:doc.data().threat,
-                            timeStamp:doc.data().timeStamp
-                        }]
-                    }))
-                }
-            })
-        ))
+
+
+
+        // placeRef.get()
+        
+        
+        // .then((snapshot)=>(
+        //     snapshot.forEach((doc) => {
+        //         if(doc.data().squads.includes(category)){
+        //             this.setState((prevState) => ({
+        //                 posts: [...prevState.posts, {
+        //                     postId:doc.id,
+        //                     address: doc.data().address,
+        //                     citizen_email: doc.data().citizen_email,
+        //                     citizen_name:doc.data().citizen_name,
+        //                     image_link:doc.data().image_link,
+        //                     squads:doc.data().squads ,
+        //                     threat:doc.data().threat,
+        //                     timeStamp:doc.data().timeStamp
+        //                 }]
+        //             }))
+        //         }
+        //     })
+        // ))
+
+        placeRef.onSnapshot(
+            (querySnapshot) => {
+                //incidentList.innerHTML="";
+                querySnapshot.docChanges().forEach(
+                    (change) => {
+                        console.log("the change loop");
+                        if (change.type === "added") {
+                            // use jsx to print the div of the cards data from 
+                           //change.doc.data().address
+                          //gives the place string where accident has taken place 
+
+                        this.setState((prevState) => ({
+                            posts: [...prevState.posts, {
+                                postId:change.doc.id,
+                                address: change.doc.data().address,
+                                citizen_email: change.doc.data().citizen_email,
+                                citizen_name:change.doc.data().citizen_name,
+                                image_link:change.doc.data().image_link,
+                                squads:change.doc.data().squads ,
+                                threat:change.doc.data().threat,
+                                timeStamp:change.doc.data().timeStamp
+                            }]
+                        }))
+
+                        }
+                        if(change.type === "modified"){
+                            var localPosts = []
+                            for (let index = 0; index < this.state.posts.length; index++) {
+                                if(this.state.posts[index].postId == change.doc.id){
+                                    localPosts.push({
+                                        postId:change.doc.id,
+                                        address: change.doc.data().address,
+                                        citizen_email: change.doc.data().citizen_email,
+                                        citizen_name:change.doc.data().citizen_name,
+                                        image_link:change.doc.data().image_link,
+                                        squads:change.doc.data().squads ,
+                                        threat:change.doc.data().threat,
+                                        timeStamp:change.doc.data().timeStamp
+                                    });
+                                }else{
+                                    localPosts.push(this.state.posts[index])
+                                }
+                                
+                            }
+                            this.setState(() => ({
+                            posts: localPosts
+                        }))
+                        }
+                    }
+                );
+            }
+        );
+
+
+
     }
 
     render(){
