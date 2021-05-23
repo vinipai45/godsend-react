@@ -46,7 +46,7 @@ class LoginFormBase extends Component {
         
         this.props.history.push(ROUTES.HOME);
         Swal.fire({
-          position: 'top-end',
+          position: 'top-mid',
           icon: 'success',
           title: "success",
           showConfirmButton: false,

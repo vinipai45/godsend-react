@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import LoginPage from '../screens/LoginPage'
 import { AuthUserContext } from '../components/session';
 import CityCardList from '../components/CityCardList'
@@ -9,7 +9,7 @@ const HomeScreen = () => {
         <>
         <AuthUserContext.Consumer>
             {authUser=>
-                authUser? <CityCardList /> : <LoginPage />
+                authUser? <CityCardList authUser={authUser} /> : <LoginPage />
             }
         </AuthUserContext.Consumer>
         

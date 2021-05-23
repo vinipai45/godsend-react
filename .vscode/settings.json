@@ -20,7 +20,17 @@
  "**/.git/subtree-cache/**": true, 
  "**/node_modules/*/**": true, 
  "**/dist": true 
- }, 
+},
+"cSpell.words": [
+  "catgory",
+  "fontawesome",
+  "fortawesome",
+  "one",
+  "password",
+  "toggle",
+  "visiblity"
+],
+
 
  // To change bar color 
  // "workbench.colorCustomizations": { 
