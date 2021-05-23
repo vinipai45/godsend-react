@@ -132,7 +132,13 @@ class SignupFormBase extends Component {
         <div className="mycard">
             <div className="card _authCard">
                 <h5>Signup here</h5>
-
+                <div>
+                <Select
+                  value={selectedOption}
+                  onChange={this.handleChange}
+                  options={options}
+                />
+                </div>
                 {/* Email */}
                 <div className="input-field _myInput">
                     <input 
@@ -177,13 +183,7 @@ class SignupFormBase extends Component {
                     <label htmlFor="passwordTwo">Password </label>
                     <i className="eye" onClick={this.togglePasswordTwoVisiblity}>{passwordShownTwo?eye:eye_slash}</i>
                 </div>
-                <Select
-                  value={selectedOption}
-                  onChange={this.handleChange}
-                  options={options}
-                />
-                <div>
-                </div>
+                
                 {/* Submit form  */}
 
                 <button 
@@ -195,6 +195,7 @@ class SignupFormBase extends Component {
                 <p>
                   Already have an account? <Link to={ROUTES.LOGIN}>login</Link>
                 </p>
+                
         </div>
           </div>
 
