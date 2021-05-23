@@ -4,12 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Firebase, { FirebaseContext } from './components/firebase';
-import DemoCarousel from './screens/Carousel'
 
 ReactDOM.render( 
   <FirebaseContext.Provider value={new Firebase()}>
-      {/* <App /> */}
-      <DemoCarousel />
+      <App />
   </FirebaseContext.Provider>,
     document.getElementById('root')
 );

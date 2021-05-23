@@ -5,27 +5,75 @@ import { Link } from 'react-router-dom';
 import {AuthUserContext} from '../components/session'
 import LoginPage from '../screens/LoginPage';
 
+var userdata;
 
 class CardList extends Component {
 
+  
+
   constructor(props) {
     super(props)
+    
     this.state = {
       posts: []
     }
   }
 
-  componentDidMount = () => {
-    this.props.firebase.places().get().then((snapshot) => (
-        snapshot.forEach((doc) => (
-            this.setState((prevState) => ({
-                posts: [...prevState.posts, {
-                    placeId: doc.id,
-                    place: doc.data().place,
-                }]
-            }))
-        ))
-    ))
+  
+
+  componentDidMount = async() => {
+
+    const snapshot = await this.props.firebase.db.collection('squad_users').get()
+    snapshot.forEach(doc=>{
+      const data = doc.data();
+      if(this.props.authUser.uid == data.user_id) {
+          userdata = data;
+      } 
+        // console.log("doc.data===========",JSON.stringify(doc.data()));
+    })
+
+    console.log("final user data=====",userdata);
+  
+    // this.props.firebase.places().get().then((snapshot) => (
+    //     snapshot.forEach((doc) => (
+    //         this.setState((prevState) => ({
+    //             posts: [...prevState.posts, {
+    //                 placeId: doc.id,
+    //                 place: doc.data().place,
+    //             }]
+    //         }))
+    //     ))
+    // ))
+
+
+    this.props.firebase.places().onSnapshot(
+      (querySnapshot) => {
+          //incidentList.innerHTML="";
+          querySnapshot.docChanges().forEach(
+              (change) => {
+                  console.log("the change loop");
+                  if (change.type === "added") {
+                      // use jsx to print the div of the cards data from 
+                     //change.doc.data().address
+                    //gives the place string where accident has taken place 
+                    this.setState((prevState) => ({
+                      posts: [...prevState.posts, {
+                          placeId: change.doc.id,
+                          place: change.doc.data().place,
+                      }]
+                  }))
+                  }
+              }
+          );
+      }
+  );
+
+
+
+
+
+
+
 }
   render() {
     // async function getCityCard() {
@@ -55,9 +103,11 @@ class CardList extends Component {
           <span className="card-title">{p.place}</span>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, expedita sunt. Quod rerum facere alias quos asperiores illum eius officia velit totam dolorum! Maiores repellendus similique odio ipsam, voluptatibus eum.</p>
         </div>
-        <div className="card-action hoverable _moreInCard">
-          <Link to={p.place} ><a className="purple-text" href="#">More <i class="material-icons right">forward</i></a></Link>
-        </div>
+        <Link to={p.place+"/"+userdata.category} >
+          <div className="card-action hoverable _moreInCard">
+            <p className="purple-text">More <i class="material-icons right">forward</i></p>
+          </div>
+        </Link>
       </div>
     </div>
   ))
@@ -68,7 +118,7 @@ class CardList extends Component {
                 authUser
                 ? 
                   <div className="row">{displayPosts}</div> 
-                : <LoginPage />
+                : <LoginPage  />
             }
         </AuthUserContext.Consumer>
         </>

@@ -37,6 +37,7 @@ class Firebase {
     // place = place => this.db.ref(`places/${place}`);
     places = () => this.db.collection('places');
     db = () => this.db;
+    // squad_users = () => this.db.collection('squad_users')
 }
 
 export default Firebase;

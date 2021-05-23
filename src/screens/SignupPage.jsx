@@ -29,6 +29,7 @@ const INITIAL_STATE = {
   passwordShownOne:false,
   passwordShownTwo:false,
   error: null,
+  category: [] 
 };
  
 class SignupFormBase extends Component {
@@ -36,15 +37,40 @@ class SignupFormBase extends Component {
     super(props);
     this.state = { ...INITIAL_STATE};
   }
+
+  componentDidMount =async()=>{
+    const snapshot = await this.props.firebase.db.collection('squad_catgory').get()
+    var category = [];
+    snapshot.forEach(doc=>{
+      category.push(doc.data().name)
+    })
+    this.setState({category})
+
+  }
  
   onSubmit = event => {
     const { email, passwordOne } = this.state;
  
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then((authUser) => {
-        this.setState({ ...INITIAL_STATE });
-        // global.authUser = authUser
+      .then(async (authUser) => {
+        // this.setState({ ...INITIAL_STATE });
+
+        const newUser = await this.props.firebase.db.collection('squad_users').add({
+          "Station_name" : "Station",
+          "user_id" : authUser.user.uid,
+          "Phone" : "2887878789",
+          "email" : authUser.user.email,
+          "City" : "city",
+          "address" : "address",
+          "category" : this.state.category[0]  //comes from the squad Category array selected by dropdown
+          
+          });
+
+        console.log("newUser=====",newUser);
+
+
+
         this.props.history.push(ROUTES.LOGIN)
         console.log(authUser);
       })

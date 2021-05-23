@@ -9,7 +9,7 @@ const HomeScreen = () => {
         <>
         <AuthUserContext.Consumer>
             {authUser=>
-                authUser? <CityCardList /> : <LoginPage />
+                authUser? <CityCardList authUser={authUser} /> : <LoginPage />
             }
         </AuthUserContext.Consumer>
         

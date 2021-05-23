@@ -1,8 +1,9 @@
 ._img {
-  height: 250px;
-  width: 200px;
+    height: 250px;
+    width: 200px;
+    padding-bottom: 0px !important;
 }
 
 ._listStyle {
-  list-style-type: none;
+    list-style-type: none;
 }
