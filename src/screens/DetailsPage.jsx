@@ -45,17 +45,17 @@ class DetailsPageBase extends Component{
                 <div class="col s12">
                     <div class="card horizontal">
                         <div class="card-image">
-                            <img className="_img" src={p.image_link} />
+                            <img className="_img" src={p.image_link} alt="Not Found" />
                         </div>
                         <div class="card-stacked">
                             <div class="card-content">
                                 <ul className="_listStyle">
-                                    <li>Address : {p.address}</li>
-                                    <li>Posted By: {p.citizen_name}</li>
-                                    <li>Email : {p.citizen_email}</li>
-                                    <li>Squads Required : {p.squads}</li>
-                                    <li>Threat : {p.threat}</li>
-                                    <li>Time: {new Date(p.timeStamp).toString()}</li>
+                                    <li><b>Address</b> : {p.address}</li>
+                                    <li><b>Posted By</b>: {p.citizen_name}</li>
+                                    <li><b>Email </b>: {p.citizen_email}</li>
+                                    <li><b>Squads Required </b>: {p.squads}</li>
+                                    <li><b>Threat </b>: {p.threat}</li>
+                                    <li><b>Time</b>: {new Date(p.timeStamp).toString()}</li>
                                 </ul>
                             </div>
                         </div>

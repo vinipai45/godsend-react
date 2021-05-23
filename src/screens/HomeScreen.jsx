@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import LoginPage from '../screens/LoginPage'
 import { AuthUserContext } from '../components/session';
 import CityCardList from '../components/CityCardList'
