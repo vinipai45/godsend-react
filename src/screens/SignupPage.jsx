@@ -4,6 +4,8 @@ import { compose } from 'recompose';
 import { withFirebase} from '../components/firebase';
 import * as ROUTES from '../constants/routes';
 
+import Select from 'react-select';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye,faEyeSlash  } from "@fortawesome/free-solid-svg-icons";
 import '../assets/signup.css';
@@ -12,12 +14,18 @@ const eye_slash = <FontAwesomeIcon icon={faEyeSlash} />;
 
  
 
- 
+const options = [
+  { value: 'Police', label: 'Police' },
+  { value: 'FireStation', label: 'FireStation' },
+  { value: 'Ambulance', label: 'Ambulance' },
+];
 const SignupPage = () => {
   return(
+      <>
       <div>
         <SignupForm />
       </div>
+      </>
   );
 }
 
@@ -29,6 +37,7 @@ const INITIAL_STATE = {
   passwordShownOne:false,
   passwordShownTwo:false,
   error: null,
+  selectedOption: null,
   category: [] 
 };
  
@@ -63,14 +72,11 @@ class SignupFormBase extends Component {
           "email" : authUser.user.email,
           "City" : "city",
           "address" : "address",
-          "category" : this.state.category[0]  //comes from the squad Category array selected by dropdown
+          "category" : this.state.selectedOption.value  //comes from the squad Category array selected by dropdown
           
           });
 
         console.log("newUser=====",newUser);
-
-
-
         this.props.history.push(ROUTES.LOGIN)
         console.log(authUser);
       })
@@ -100,8 +106,13 @@ class SignupFormBase extends Component {
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
- 
+  handleChange = selectedOption => {
+    const newCategory = selectedOption
+    this.setState({ selectedOption: newCategory });
+    console.log(`Option selected:`, newCategory);
+  };
   render() {
+    const { selectedOption } = this.state;
     const {
       email,
       passwordOne,
@@ -115,7 +126,6 @@ class SignupFormBase extends Component {
       passwordOne === '' ||
       passwordTwo === '' ||
       email === '';
-
     
       return (
       <form onSubmit={this.onSubmit}>
@@ -167,8 +177,15 @@ class SignupFormBase extends Component {
                     <label htmlFor="passwordTwo">Password </label>
                     <i className="eye" onClick={this.togglePasswordTwoVisiblity}>{passwordShownTwo?eye:eye_slash}</i>
                 </div>
-                
+                <Select
+                  value={selectedOption}
+                  onChange={this.handleChange}
+                  options={options}
+                />
+                <div>
+                </div>
                 {/* Submit form  */}
+
                 <button 
                   disabled={isInvalid}
                   type="submit"
