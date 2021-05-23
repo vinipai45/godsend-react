@@ -61,20 +61,20 @@ class DetailsPageBase extends Component{
                             // use jsx to print the div of the cards data from 
                            //change.doc.data().address
                           //gives the place string where accident has taken place 
-
-                        this.setState((prevState) => ({
-                            posts: [...prevState.posts, {
-                                postId:change.doc.id,
-                                address: change.doc.data().address,
-                                citizen_email: change.doc.data().citizen_email,
-                                citizen_name:change.doc.data().citizen_name,
-                                image_link:change.doc.data().image_link,
-                                squads:change.doc.data().squads ,
-                                threat:change.doc.data().threat,
-                                timeStamp:change.doc.data().timeStamp
-                            }]
-                        }))
-
+                          if(change.doc.data().squads.includes(category)){
+                            this.setState((prevState) => ({
+                                posts: [...prevState.posts, {
+                                    postId:change.doc.id,
+                                    address: change.doc.data().address,
+                                    citizen_email: change.doc.data().citizen_email,
+                                    citizen_name:change.doc.data().citizen_name,
+                                    image_link:change.doc.data().image_link,
+                                    squads:change.doc.data().squads ,
+                                    threat:change.doc.data().threat,
+                                    timeStamp:change.doc.data().timeStamp
+                                }]
+                            }))
+                          }                    
                         }
                         if(change.type === "modified"){
                             var localPosts = []
@@ -111,6 +111,7 @@ class DetailsPageBase extends Component{
     render(){
 
         let displayPosts = this.state.posts.map((p) => (
+            
             <div key={p.postId}>
                 <div class="col s12">
                     <div class="card horizontal">
@@ -138,7 +139,7 @@ class DetailsPageBase extends Component{
                                     <li><b>Address</b> : {p.address}</li>
                                     <li><b>Posted By</b>: {p.citizen_name}</li>
                                     <li><b>Email </b>: {p.citizen_email}</li>
-                                    <li><b>Squads Required </b>: {p.squads}</li>
+                                    {/* <li><b>Squads Required </b>: {p.squads}</li> */}
                                     <li><b>Threat </b>: {p.threat}</li>
                                     <li><b>Time</b>: {new Date(p.timeStamp).toString()}</li>
                                 </ul>
