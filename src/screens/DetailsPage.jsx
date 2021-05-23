@@ -51,7 +51,7 @@ class DetailsPageBase extends Component{
         //     })
         // ))
 
-        placeRef.onSnapshot(
+        placeRef.orderBy("timeStamp", "desc").onSnapshot(
             (querySnapshot) => {
                 //incidentList.innerHTML="";
                 querySnapshot.docChanges().forEach(
@@ -153,10 +153,13 @@ class DetailsPageBase extends Component{
             <AuthUserContext.Consumer>
                 {authUser=>
                     authUser
-                    ? 
-                      <div className="row">
+                    ? <>
+                    {<center><h5>{this.state.category + " squad"}</h5></center>}
+                    <div className="row">
                         {displayPosts}
                       </div>
+                    </>
+                      
                     : <LoginPage />
                 }
             </AuthUserContext.Consumer>

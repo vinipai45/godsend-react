@@ -32,7 +32,7 @@ class CardList extends Component {
         // console.log("doc.data===========",JSON.stringify(doc.data()));
     })
 
-    console.log("final user data=====",userdata);
+    console.log("final user data=====",JSON.stringify(userdata));
   
     // this.props.firebase.places().get().then((snapshot) => (
     //     snapshot.forEach((doc) => (
@@ -101,7 +101,7 @@ class CardList extends Component {
       <div className="card hoverable">
         <div className="card-content">
           <span className="card-title">{p.place}</span>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, expedita sunt. Quod rerum facere alias quos asperiores illum eius officia velit totam dolorum! Maiores repellendus similique odio ipsam, voluptatibus eum.</p>
+          {/* <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, expedita sunt. Quod rerum facere alias quos asperiores illum eius officia velit totam dolorum! Maiores repellendus similique odio ipsam, voluptatibus eum.</p> */}
         </div>
         <Link to={p.place+"/"+userdata.category} >
           <div className="card-action hoverable _moreInCard">
@@ -116,8 +116,13 @@ class CardList extends Component {
         <AuthUserContext.Consumer>
             {authUser=>
                 authUser
-                ? 
-                  <div className="row">{displayPosts}</div> 
+                ? <>
+                    {!userdata ? <></> : <center><h5>{userdata.category + " squad"}</h5></center>  }
+                    <div className="row">
+                    {displayPosts}
+                    </div> 
+                  </>
+                  
                 : <LoginPage  />
             }
         </AuthUserContext.Consumer>
