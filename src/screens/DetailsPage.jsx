@@ -113,17 +113,17 @@ class DetailsPageBase extends Component{
         let displayPosts = this.state.posts.map((p) => (
             
             <div key={p.postId}>
-                <div class="col s12">
-                    <div class="card horizontal">
-                        <div class="card-image">
-                        <Carousel
+							 <div class="col s12 m6 l3">
+								<div class="card">
+									<div class="">
+									<Carousel
                             autoPlay={true}  
                             infiniteLoop={true} 
                             interval={2000}
                             centerMode={true} 
                             centerSlidePercentage={100} 
                             showThumbs={false} 
-                            showIndicators={false} 
+                            showIndicators={false}
                         >
                             { 
                                 p.image_link.map((element)=>(
@@ -132,21 +132,19 @@ class DetailsPageBase extends Component{
                             }
                             
                         </Carousel>
-                        </div>
-                        <div class="card-stacked">
-                            <div class="card-content">
-                                <ul className="_listStyle">
-                                    <li><b>Address</b> : {p.address}</li>
-                                    <li><b>Posted By</b>: {p.citizen_name}</li>
-                                    <li><b>Email </b>: {p.citizen_email}</li>
-                                    {/* <li><b>Squads Required </b>: {p.squads}</li> */}
-                                    <li><b>Threat </b>: {p.threat}</li>
-                                    <li><b>Time</b>: {new Date(p.timeStamp).toString()}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+									
+									</div>
+									<div class="card-content" style={{"margin-top":"-50%"}}>
+									<ul className="_listStyle">
+											<li><b>Address</b> : {p.address}</li>
+											<li><b>Posted By</b>: {p.citizen_name}</li>
+											<li><b>Email </b>: {p.citizen_email}</li>
+											<li><b>Threat </b>: {p.threat}</li>
+											<li><b>Time</b>: {new Date(p.timeStamp).toString()}</li>
+										</ul>
+									</div>
+								</div>
+							</div>
             </div>
         ))
         return (
@@ -155,7 +153,7 @@ class DetailsPageBase extends Component{
                 {authUser=>
                     authUser
                     ? <>
-                    {<center><h5>{this.state.category + " squad"}</h5></center>}
+                    {<center><h5>{this.state.category.toUpperCase() + " squad".toUpperCase()}</h5></center>}
                     <div className="row">
                         {displayPosts}
                       </div>
