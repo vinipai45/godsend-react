@@ -7,6 +7,8 @@ import HomeScreen from './screens/HomeScreen'
 import DetailsPage from './screens/DetailsPage'
 import NavBar from './components/NavBar'
 import { withAuthentication } from './components/session';
+import ImagePreview from "./screens/ImagePreview";
+
 
 class App extends Component {
     render(){
@@ -17,6 +19,7 @@ class App extends Component {
             <Route exact path={ROUTES.DETAILS_PAGE} component={DetailsPage} />
             <Route exact path={ROUTES.SIGN_UP} component={SignupPage} />
             <Route exact path={ROUTES.LOGIN} component={LoginPage} />
+            <Route exact path={ROUTES.POST_ID} component={ImagePreview} />
           </Router>
        
       );

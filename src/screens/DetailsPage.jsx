@@ -5,6 +5,7 @@ import {AuthUserContext} from '../components/session'
 import LoginPage from '../screens/LoginPage'
 import '../assets/imageCard.css'
 
+import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
@@ -63,7 +64,7 @@ class DetailsPageBase extends Component{
                           //gives the place string where accident has taken place 
                           if(change.doc.data().squads.includes(category)){
                             this.setState((prevState) => ({
-                                posts: [...prevState.posts, {
+                                posts: [ {
                                     postId:change.doc.id,
                                     address: change.doc.data().address,
                                     citizen_email: change.doc.data().citizen_email,
@@ -72,7 +73,7 @@ class DetailsPageBase extends Component{
                                     squads:change.doc.data().squads ,
                                     threat:change.doc.data().threat,
                                     timeStamp:change.doc.data().timeStamp
-                                }]
+                                }, ...prevState.posts]
                             }))
                           }                    
                         }
@@ -129,8 +130,10 @@ class DetailsPageBase extends Component{
             
             <div key={p.postId}>
 							 <div class="col s12 m6 l3">
+                             
 								<div class="card">
 									<div class="">
+                                    <Link to={"/"+this.state.placename+"/"+this.state.category+"/"+p.postId} >
 									<Carousel
                             autoPlay={true}  
                             infiniteLoop={true} 
@@ -147,6 +150,7 @@ class DetailsPageBase extends Component{
                             }
                             
                         </Carousel>
+                        </Link>
 									
 									</div>
 									<div class="card-content" style={{"margin-top":"-50%"}}>
@@ -159,6 +163,7 @@ class DetailsPageBase extends Component{
 										</ul>
 									</div>
 								</div>
+                                
 							</div>
             </div>
         ))
