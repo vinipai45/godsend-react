@@ -90,6 +90,21 @@ class DetailsPageBase extends Component{
                                         threat:change.doc.data().threat,
                                         timeStamp:change.doc.data().timeStamp
                                     });
+
+                                    // fetch('http://localhost:5000/notify',{
+                                    //     method:'post',
+                                    //     body:JSON.stringify({
+                                    //         place:change.doc.data().address,
+                                    //         threat:change.doc.data().threat,
+                                    //         imageUrl:change.doc.data().image_link
+                                    //     }),
+                                    //     headers: {
+                                    //         'Content-Type': 'application/json'
+                                    //     }
+                                    // }).catch(err=>console.log(err))
+
+
+
                                 }else{
                                     localPosts.push(this.state.posts[index])
                                 }

@@ -96,6 +96,20 @@ class CardList extends Component {
     //       );
     //     })
     //   }
+    let FetchData = ()=>{
+      fetch('http://localhost:5000/notify',{
+          method:'post',
+          body:JSON.stringify({
+              place:"PLACE HERE",
+              threat:"THREAT HERE",
+              imageUrl:"IMAGE ALT"
+          }),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }).catch(err=>console.log(err))
+    }
+
     let displayPosts = this.state.posts.map((p) => (
       <div className="col s12 m6 l4 " key={p.placeId}>
       <div className="card hoverable">
@@ -120,6 +134,7 @@ class CardList extends Component {
                     {!userdata ? <></> : <center><h5>{userdata.category + " squad"}</h5></center>  }
                     <div className="row">
                     {displayPosts}
+                    <button onClick={()=>FetchData()}>Notify demo</button>
                     </div> 
                   </>
                   
