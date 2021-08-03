@@ -132,6 +132,8 @@ class SignupFormBase extends Component {
         <div className="mycard">
             <div className="card _authCard">
                 <h5>Signup here</h5>
+
+                {/* Drop Down */}
                 <div>
                 <Select
                   value={selectedOption}
@@ -139,6 +141,7 @@ class SignupFormBase extends Component {
                   options={options}
                 />
                 </div>
+
                 {/* Email */}
                 <div className="input-field _myInput">
                     <input 
@@ -153,7 +156,6 @@ class SignupFormBase extends Component {
                     <label htmlFor="email">Email</label>
                 </div>
          
-
                 {/* Password One*/}
                 <div className="input-field _myInput">
                     <input 
@@ -185,7 +187,6 @@ class SignupFormBase extends Component {
                 </div>
                 
                 {/* Submit form  */}
-
                 <button 
                   disabled={isInvalid}
                   type="submit"
