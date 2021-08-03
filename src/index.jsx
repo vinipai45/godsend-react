@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Firebase, { FirebaseContext } from './components/firebase';
+import "react-image-gallery/styles/css/image-gallery.css";
 
 ReactDOM.render( 
   <FirebaseContext.Provider value={new Firebase()}>
